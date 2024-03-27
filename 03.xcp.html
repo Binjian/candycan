@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.552">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="flashing interface for XCP">
+
+<title>candycan - XCP</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="candycan - XCP">
+<meta property="og:description" content="flashing interface for XCP">
+<meta property="og:site_name" content="candycan">
+<meta name="twitter:title" content="candycan - XCP">
+<meta name="twitter:description" content="flashing interface for XCP">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">candycan</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./03.xcp.html">XCP</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">candycan</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00.core.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">core</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01.a2l.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A2L</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02.ccp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CCP</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03.xcp.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">XCP</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04.data_link_socketcan.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">data link layer with socket can</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05.data_link_scapy.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">data link layer with scapy wrapper</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06.dbc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">dbc</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">vcantest</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vcantest/receive_messasge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">receive_message</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vcantest/send_message.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">send_message</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vcantest/send_receive_message_mp.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">send_receive_message_mp.html</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#get_argparser" id="toc-get_argparser" class="nav-link active" data-scroll-target="#get_argparser">get_argparser</a></li>
+  <li><a href="#npa_to_packed_buffer" id="toc-npa_to_packed_buffer" class="nav-link" data-scroll-target="#npa_to_packed_buffer">npa_to_packed_buffer</a></li>
+  <li><a href="#flash_xcp" id="toc-flash_xcp" class="nav-link" data-scroll-target="#flash_xcp">flash_xcp</a></li>
+  <li><a href="#caution" id="toc-caution" class="nav-link" data-scroll-target="#caution">Caution</a></li>
+  <li><a href="#ccp-via-scapy" id="toc-ccp-via-scapy" class="nav-link" data-scroll-target="#ccp-via-scapy">CCP via Scapy</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/Binjian/candycan/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">XCP</h1>
+</div>
+
+<div>
+  <div class="description">
+    flashing interface for XCP
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div id="cell-2" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># #|export</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from candycan.data_link_socketcan import done, send_msg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+<p><a href="https://github.com/Binjian/candycan/blob/main/candycan/xcp.py#L50" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="get_argparser" class="level3">
+<h3 class="anchored" data-anchor-id="get_argparser">get_argparser</h3>
+<blockquote class="blockquote">
+<pre><code> get_argparser ()</code></pre>
+</blockquote>
+<p>Summary Get argument parser for command line arguments</p>
+<p>Returns: argparse.ArgumentParser: <em>description</em></p>
+<div id="cell-4" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>parser <span class="op">=</span> get_argparser()</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>args <span class="op">=</span> parser.parse_args(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    args<span class="op">=</span>[</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--protocol'</span>, <span class="st">'xcp'</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--download'</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--a2l'</span>, repo.working_dir<span class="op">+</span><span class="st">'/res/VBU_AI.json'</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--node-path'</span>, <span class="vs">r'/PROJECT/MODULE[]'</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--leaves'</span>, <span class="vs">r'TQD_trqTrqSetNormal_MAP_v, VBU_L045A_CWP_05_09T_AImode_CM_single, Lookup2D_FLOAT32_IEEE, Lookup2D_X_FLOAT32_IEEE, Scalar_FLOAT32_IEEE, TQD_vVehSpd, TQD_vSgndSpd_MAP_y, TQD_pctAccPedPosFlt, TQD_pctAccPdl_MAP_x'</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--channel'</span>, <span class="st">'3'</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--download_id'</span>, <span class="st">'630'</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--upload_id'</span>, <span class="st">'631'</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--input'</span>, repo.working_dir<span class="op">+</span><span class="st">'/res/download.json'</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="st">'--output'</span>, repo.working_dir<span class="op">+</span><span class="st">'/res/output.json'</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-5" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>xcp_calib_from_xcpjson <span class="op">=</span> Get_XCPCalib_From_XCPJSon(args.<span class="bu">input</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>xcp_data <span class="op">=</span> Generate_Init_XCPData_From_A2L(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    a2l<span class="op">=</span>args.a2l, keys<span class="op">=</span>args.leaves, node_path<span class="op">=</span>args.node_path</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#  address from xcp data file should align with the address from xcp calib file</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>test_eq(xcp_data.address, xcp_calib_from_xcpjson.data[<span class="dv">0</span>].address)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># validate the model</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    XCPData.model_validate(xcp_data)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> ValidationError <span class="im">as</span> exc:</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(exc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>{   'address': '7000aa2a',
+    'dim': [14, 17],
+    'name': 'TQD_trqTrqSetNormal_MAP_v',
+    'type_size': 4,
+    'value': '0000000000...000',
+    'value_array_view': array([[0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       ...,
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.],
+       [0., 0., 0., ..., 0., 0., 0.]]),
+    'value_length': 4,
+    'value_type': 'FLOAT32_IEEE'}</code></pre>
+</div>
+</div>
+<div id="cell-6" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># type(args.channel), type(args.download_id), args.upload_id, args.download, args.diff_flashing</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>xcp_data.value <span class="op">=</span> xcp_calib_from_xcpjson.data[<span class="dv">0</span>].value</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>pprint(xcp_data)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>xcp_calib <span class="op">=</span> XCPCalib(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    config<span class="op">=</span>XCPConfig(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        channel<span class="op">=</span>args.channel, download<span class="op">=</span><span class="bu">str</span>(args.download_id), upload<span class="op">=</span><span class="bu">str</span>(args.upload_id)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    data<span class="op">=</span>[xcp_data],</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>pprint(xcp_calib)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{   'address': '7000aa2a',
+    'dim': [14, 17],
+    'name': 'TQD_trqTrqSetNormal_MAP_v',
+    'type_size': 4,
+    'value': '0000000025...344',
+    'value_array_view': array([[    0.   ,  1135.317,  1135.317, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [    0.   ,   148.09 ,   148.09 , ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [-1338.534,  -833.344,  -328.155, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       ...,
+       [-1316.842, -1086.408,  -855.974, ...,  2034.368,  2034.368,
+         2034.368],
+       [-1141.171,  -926.042,  -710.912, ...,  1859.521,  1859.521,
+         1859.521],
+       [ -286.008,  -135.973,    14.062, ...,  1690.249,  1690.249,
+         1690.249]]),
+    'value_length': 4,
+    'value_type': 'FLOAT32_IEEE'}
+XCPCalib(config=XCPConfig(channel=3, download_can_id='630', upload_can_id='631'), data=[{   'address': '7000aa2a',
+    'dim': [14, 17],
+    'name': 'TQD_trqTrqSetNormal_MAP_v',
+    'type_size': 4,
+    'value': '0000000025...344',
+    'value_array_view': array([[    0.   ,  1135.317,  1135.317, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [    0.   ,   148.09 ,   148.09 , ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [-1338.534,  -833.344,  -328.155, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       ...,
+       [-1316.842, -1086.408,  -855.974, ...,  2034.368,  2034.368,
+         2034.368],
+       [-1141.171,  -926.042,  -710.912, ...,  1859.521,  1859.521,
+         1859.521],
+       [ -286.008,  -135.973,    14.062, ...,  1690.249,  1690.249,
+         1690.249]]),
+    'value_length': 4,
+    'value_type': 'FLOAT32_IEEE'}])</code></pre>
+</div>
+</div>
+<div id="cell-8" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>npa <span class="op">=</span>  xcp_calib.data[<span class="dv">0</span>].value_array_view</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>npa</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>array([[    0.   ,  1135.317,  1135.317, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [    0.   ,   148.09 ,   148.09 , ...,  4436.   ,  4436.   ,
+         4436.   ],
+       [-1338.534,  -833.344,  -328.155, ...,  4436.   ,  4436.   ,
+         4436.   ],
+       ...,
+       [-1316.842, -1086.408,  -855.974, ...,  2034.368,  2034.368,
+         2034.368],
+       [-1141.171,  -926.042,  -710.912, ...,  1859.521,  1859.521,
+         1859.521],
+       [ -286.008,  -135.973,    14.062, ...,  1690.249,  1690.249,
+         1690.249]])</code></pre>
+</div>
+</div>
+<div id="cell-9" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer = [i.hex() for x in npa for i in x]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># # buffer[::-1]</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co"># len(buffer)</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-10" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer = npa.tobytes()</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pprint(buffer), len(buffer)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># xcp_calib.data[0].value, len(xcp_calib.data[0].value)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-11" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>addr <span class="op">=</span> <span class="bu">bytes</span>(<span class="st">'7000aa2a'</span>, <span class="st">'utf-8'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bn">0x7000aa2a</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>1879091754</code></pre>
+</div>
+</div>
+<div id="cell-12" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>npb <span class="op">=</span> npa[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># npb</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span> <span class="op">=</span> [struct.pack(<span class="st">"&lt;f"</span>, x) <span class="cf">for</span> x <span class="kw">in</span> np.nditer(npa)]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(<span class="bu">buffer</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>238</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/Binjian/candycan/blob/main/candycan/xcp.py#L141" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="npa_to_packed_buffer" class="level3">
+<h3 class="anchored" data-anchor-id="npa_to_packed_buffer">npa_to_packed_buffer</h3>
+<blockquote class="blockquote">
+<pre><code> npa_to_packed_buffer (a:numpy.ndarray)</code></pre>
+</blockquote>
+<p>convert a numpy array to a packed string buffer for flashing TODO: implementation as numpy ufunc</p>
+<p>Args: a (np.ndarray): input numpy array for flashing</p>
+<p>Returns: str: packed string buffer for flashing</p>
+<div id="cell-14" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer = [struct.pack("&lt;f", x).hex() for x in np.nditer(npa)]</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer[::-1]</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># len(buffer)</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># buffer</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data = ''.join(buffer)</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> npa_to_packed_buffer(npa)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>test_eq(data, xcp_calib.data[<span class="dv">0</span>].value)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co"># data</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-15" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># npa.astype(np.float32).tobytes().hex()</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span> <span class="op">=</span> npa.astype(np.float32).tobytes().<span class="bu">hex</span>()  <span class="co">## == npa_to_packed_buffer(npa)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">buffer</span>, <span class="bu">len</span>(<span class="bu">buffer</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>test_eq(<span class="bu">buffer</span>, xcp_calib.data[<span class="dv">0</span>].value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>('0000000025ea8d4425ea8d4425ea8d4425ea8d44db349544b31eb6448c08d74464f2f7441e6e0c45811d2545e3cc3d45467c564585ed834500a08a4500a08a4500a08a4500000000ed161443ed1614434eba8d431a791e44cb4c60443e10914417fab144efe3d244c8cdf34446961245a9452b450bf54345d053754500a08a4500a08a4500a08a451451a7c40b5650c4dd13a4c3b80831434da9f94356254144847c81445c66a2443550c3440d3ae44469cc0a45cb7b23452e2b3c45f3896d4500a08a4500a08a4500a08a45fffc0fc5a4fcd0c44bff81c4c807ccc339db5f4376a00944f8d74744bd0783447f23a244403fc144e2e8ef4442490f45139e2645b5475545abf8814500a08a4500a08a45771f0dc59f6adac451969ac4078435c4ab6d57c3629a9343eb8d18443f2953444ae28644f42fa4447424d044f318fc44b906144539fb3f45b8ef6b4500a08a4500a08a45483e09c51dd0dcc4a923a7c46cee62c40a2befc3dcc943c29338be43be142944e413604485898b44e1c8b4443e08de44cda303452ae32c4586225645e3617f4500a08a45735904c5aa24dac46c96abc45f107ac4e5f31cc4ac5d7fc37928ea4212c3f443ff0b3e44f76e7144b5419f44efcbc5442856ec444eb51c45873f4345c1c96945f1378345efe1fcc4bac2d3c485a3aac44f8481c434ca30c49117bdc3ddd544c21ae28b43782f1844d5ca5444823a8e44990fb244b0e4d5446fc70e45869c32459e715645d52c5745ab09efc4be0dcac4d111a5c4e31580c4eb3336c42178d8c3d81009c393ce1e43ff56e3435aa33b4499f082448d10a4448130c54435b8034529d8244576423545764235451a2adfc4846cbcc4eeae99c4b0e26dc4846728c4afd8c5c35b89ebc2032820435a0adb4359003344857b784494a89a446513b94408e9f544555f194515471e4515471e453c43cdc4c4f8acc44dae8cc4abc758c4bc3218c49b3bafc3f646b8c240302643fd41d443eeb52a44dc4a6b44cce696447b9cb244d807ea44ef260e45ef260e45ef260e45f49aa4c40fcd87c455fe55c48c621cc4868dc5c3e8ab24c3798683423019944361a803442a443d44f3df7644de3d98446b3eb144833fe344c44bfe44c44bfe44c44bfe447ba58ec4ae8267c466ba31c43ce4f7c3ac538cc3700c83c2e89a1543045eb6434af7104492bf4644da877c4411289944149ab444e730e144ab70e844ab70e844ab70e8440b018fc329f907c359fc6041b4182443d1109d434815e843e08c19441b0f3f4457916444c9098544e7ca9744058caa44224dbd44f647d344f647d344f647d344f647d344',
+ 1904)</code></pre>
+</div>
+</div>
+<hr>
+<p><a href="https://github.com/Binjian/candycan/blob/main/candycan/xcp.py#L155" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="flash_xcp" class="level3">
+<h3 class="anchored" data-anchor-id="flash_xcp">flash_xcp</h3>
+<blockquote class="blockquote">
+<pre><code> flash_xcp (xcp_calib:candycan.a2l.XCPCalib,
+            data:pandas.core.frame.DataFrame, diff_flashing:bool=False,
+            download:bool=True)</code></pre>
+</blockquote>
+<p>Summary Flash XCP data to target</p>
+<p>Args: xcp_calib (XCPCalib): XCP calibration as template, contains all the meta information except for data xcp_data (pd.DataFrame): input XCP data to be flashed, replace the value in xcp_calib diff_flashing (bool): Use differential flashing download (bool): Download or upload</p>
+<div id="cell-17" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>pkt <span class="op">=</span> IP()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>pkt.canvas_dump()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03.xcp_files/figure-html/cell-17-output-1.svg" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-18" class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>IP()</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> IP(dst<span class="op">=</span><span class="st">"10.10.10.28"</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>a.dst</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>a.ttl</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>ls(IP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;IP  |&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>'10.10.10.28'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>64</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>version    : BitField  (4 bits)                  = ('4')
+ihl        : BitField  (4 bits)                  = ('None')
+tos        : XByteField                          = ('0')
+len        : ShortField                          = ('None')
+id         : ShortField                          = ('1')
+flags      : FlagsField                          = ('&lt;Flag 0 ()&gt;')
+frag       : BitField  (13 bits)                 = ('0')
+ttl        : ByteField                           = ('64')
+proto      : ByteEnumField                       = ('0')
+chksum     : XShortField                         = ('None')
+src        : SourceIPField                       = ('None')
+dst        : DestIPField                         = ('None')
+options    : PacketListField                     = ('[]')</code></pre>
+</div>
+</div>
+<div id="cell-19" class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> IP(ttl<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>a.src</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>a.dst<span class="op">=</span><span class="st">"192.168.1.1"</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>Ether()<span class="op">/</span>IP()<span class="op">/</span>TCP()</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>raw(IP())</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>IP(_)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> Ether()<span class="op">/</span>IP(dst<span class="op">=</span><span class="st">"www.slashdot.org"</span>)<span class="op">/</span>TCP()<span class="op">/</span><span class="st">"GET /index.html HTTP </span><span class="ch">\n\n</span><span class="st">"</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>hexdump(a)</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>b<span class="op">=</span>raw(a)</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>b</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> Ether(b)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>c</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>c.hide_defaults()</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'127.0.0.1'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;IP  ttl=10 dst=192.168.1.1 |&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Ether  type=IPv4 |&lt;IP  frag=0 proto=tcp |&lt;TCP  |&gt;&gt;&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>b'E\x00\x00\x14\x00\x01\x00\x00@\x00|\xe7\x7f\x00\x00\x01\x7f\x00\x00\x01'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;IP  version=4 ihl=5 tos=0x0 len=20 id=1 flags= frag=0 ttl=64 proto=hopopt chksum=0x7ce7 src=127.0.0.1 dst=127.0.0.1 |&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0000  E8 1C BA 6E F3 40 04 42 1A EC 4B 8D 08 00 45 00  ...n.@.B..K...E.
+0010  00 3F 00 01 00 00 40 06 22 8F 0A 0A 0A 1F AC 40  .?....@."......@
+0020  97 C0 00 14 00 50 00 00 00 00 00 00 00 00 50 02  .....P........P.
+0030  20 00 C2 ED 00 00 47 45 54 20 2F 69 6E 64 65 78   .....GET /index
+0040  2E 68 74 6D 6C 20 48 54 54 50 20 0A 0A           .html HTTP ..</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>b'\xe8\x1c\xban\xf3@\x04B\x1a\xecK\x8d\x08\x00E\x00\x00?\x00\x01\x00\x00@\x06"\x8f\n\n\n\x1f\xac@\x97\xc0\x00\x14\x00P\x00\x00\x00\x00\x00\x00\x00\x00P\x02 \x00\xc2\xed\x00\x00GET /index.html HTTP \n\n'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Ether  dst=e8:1c:ba:6e:f3:40 src=04:42:1a:ec:4b:8d type=IPv4 |&lt;IP  version=4 ihl=5 tos=0x0 len=63 id=1 flags= frag=0 ttl=64 proto=tcp chksum=0x228f src=10.10.10.31 dst=172.64.151.192 |&lt;TCP  sport=ftp_data dport=http seq=0 ack=0 dataofs=5 reserved=0 flags=S window=8192 chksum=0xc2ed urgptr=0 |&lt;Raw  load='GET /index.html HTTP \n\n' |&gt;&gt;&gt;&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Ether  dst=e8:1c:ba:6e:f3:40 src=04:42:1a:ec:4b:8d type=IPv4 |&lt;IP  ihl=5 len=63 frag=0 proto=tcp chksum=0x228f src=10.10.10.31 dst=172.64.151.192 |&lt;TCP  dataofs=5 chksum=0xc2ed |&lt;Raw  load='GET /index.html HTTP \n\n' |&gt;&gt;&gt;&gt;</code></pre>
+</div>
+</div>
+<div id="cell-20" class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>os.getcwd()</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> rdpcap(<span class="st">'../res/pcaps/ipfix.pcap'</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># a[0].pdfdump(layer_shift=1)</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">1</span>].psdump(<span class="st">"/tmp/ipfix.eps"</span>, layer_shift<span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>'/home/n/devel/candycan/nbs'</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;ipfix.pcap: TCP:0 UDP:3 ICMP:0 Other:0&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code></code></pre>
+</div>
+</div>
+<div id="cell-21" class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>a<span class="op">=</span>IP(dst<span class="op">=</span><span class="st">"www.slashdot.org/30"</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>a</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>[p <span class="cf">for</span> p <span class="kw">in</span> a]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;IP  dst=Net("www.slashdot.org/30") |&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>[&lt;IP  dst=172.64.151.192 |&gt;,
+ &lt;IP  dst=172.64.151.193 |&gt;,
+ &lt;IP  dst=172.64.151.194 |&gt;,
+ &lt;IP  dst=172.64.151.195 |&gt;]</code></pre>
+</div>
+</div>
+</section>
+<section id="caution" class="level1">
+<h1>Caution</h1>
+<p>set the python3 of the virtualenv with the CAP_NET_RAW capability!</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sudo</span> setcap <span class="st">'CAP_NET_RAW+eip CAP_NET_ADMIN+eip'</span> /dpt/.pyenv/versions/miniconda3-3.11-24.1.2-0/envs/can/bin/python3.11</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sniff(filter="icmp and host 10.10.10.28", count=2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-24" class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># install vcan interface with encrypted password to sudo </span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo modprobe vcan"</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sshpass -v -p asdf sudo ip link add dev vcan0 type vcan</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo ip link add dev vcan0 type vcan"</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"ip link show vcan0"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co"># !gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo ip link set vcan0 type vcan bitrate 500000  # vcan does not support set bitrate on command line!</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co"># !sshpass -p asdf sudo ip link add dev vcan0 type vcan</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo ip link set up vcan0"</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co"># !sshpass -v -p asdf sudo ip link set up vcan0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>SSHPASS: searching for password prompt using match "assword"
+SSHPASS: read: [sudo] password for n: 
+SSHPASS: detected prompt. Sending password.
+SSHPASS: read: 
+
+SSHPASS: searching for password prompt using match "assword"
+SSHPASS: read: [sudo] password for n: 
+SSHPASS: detected prompt. Sending password.
+SSHPASS: read: 
+
+RTNETLINK answers: File exists
+SSHPASS: searching for password prompt using match "assword"
+SSHPASS: read: [sudo] password for n: 
+SSHPASS: detected prompt. Sending password.
+SSHPASS: read: 
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>512</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>33: vcan0: &lt;NOARP,UP,LOWER_UP&gt; mtu 72 qdisc noqueue state UNKNOWN mode DEFAULT group default qlen 1000
+    link/can </code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>load_layer(<span class="st">"can"</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>conf.contribs[<span class="st">'CANSocket'</span>] <span class="op">=</span> {<span class="st">'use-python-can'</span>: <span class="va">False</span>}</span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>load_contrib(<span class="st">"cansocket"</span>)</span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>socket <span class="op">=</span> CANSocket(channel<span class="op">=</span><span class="st">'vcan0'</span>,</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>                receive_own_messages<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-26" class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>packet <span class="op">=</span> CAN(identifier<span class="op">=</span><span class="bn">0x123</span>, data<span class="op">=</span><span class="st">b'12345678'</span>)</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>packet.show2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###[ CAN ]### 
+  flags     = 
+  identifier= 0x123
+  length    = 8
+  reserved  = 0
+  data      = '12345678'
+</code></pre>
+</div>
+</div>
+<div id="cell-27" class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>socket.send(packet)</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>rx_packet <span class="op">=</span> socket.recv()</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>rx_packet.show2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>16</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###[ CAN ]### 
+  flags     = 
+  identifier= 0x123
+  length    = 8
+  reserved  = 0
+  data      = '12345678'
+</code></pre>
+</div>
+</div>
+</section>
+<section id="ccp-via-scapy" class="level1">
+<h1>CCP via Scapy</h1>
+<div id="cell-29" class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>load_contrib(<span class="st">"automotive.ccp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-30" class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>pkt <span class="op">=</span> CCP(identifier<span class="op">=</span><span class="bn">0x700</span>)<span class="op">/</span>CRO(ctr<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>CONNECT(station_address<span class="op">=</span><span class="bn">0x02</span>)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>pkt.show2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###[ CAN Calibration Protocol ]### 
+  flags     = 
+  identifier= 0x700
+  length    = 8
+  reserved  = 0
+###[ DTO ]### 
+     packet_id = 0x1
+     return_code= DAQ processor overload
+     ctr       = 2
+###[ DEFAULT_DTO ]### 
+        load      = '\x00\\xff\\xff\\xff\\xff'
+</code></pre>
+</div>
+</div>
+<div id="cell-31" class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>pkt <span class="op">=</span> CCP(identifier<span class="op">=</span><span class="bn">0x711</span>)<span class="op">/</span>CRO(ctr<span class="op">=</span><span class="dv">2</span>)<span class="op">/</span>GET_SEED(resource<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>pkt.show2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###[ CAN Calibration Protocol ]### 
+  flags     = 
+  identifier= 0x711
+  length    = 8
+  reserved  = 0
+###[ DTO ]### 
+     packet_id = 0x12
+     return_code= 2
+     ctr       = 2
+###[ DEFAULT_DTO ]### 
+        load      = '\\xff\\xff\\xff\\xff\\xff'
+</code></pre>
+</div>
+</div>
+<div id="cell-32" class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>pkt <span class="op">=</span> CCP(identifier<span class="op">=</span><span class="bn">0x711</span>)<span class="op">/</span>CRO(ctr<span class="op">=</span><span class="dv">3</span>)<span class="op">/</span>UNLOCK(key<span class="op">=</span><span class="st">b"123456"</span>)</span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>pkt.show2()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###[ CAN Calibration Protocol ]### 
+  flags     = 
+  identifier= 0x711
+  length    = 8
+  reserved  = 0
+###[ DTO ]### 
+     packet_id = 0x13
+     return_code= 3
+     ctr       = 49
+###[ DEFAULT_DTO ]### 
+        load      = '23456'
+</code></pre>
+</div>
+</div>
+<div id="cell-33" class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>pkt <span class="op">=</span> CCP(identifier<span class="op">=</span><span class="bn">0x711</span>)<span class="op">/</span>CRO(ctr<span class="op">=</span><span class="dv">1</span>)<span class="op">/</span>GET_DAQ_SIZE()</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>sock <span class="op">=</span> CANSocket(bustype<span class="op">=</span><span class="st">'socketcan'</span>, channel<span class="op">=</span><span class="st">'vcan0'</span>, receive_own_messages<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-34" class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co">## another socket in the same process cannot receive the packet sent by the first socket</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="co"># socket2 = CANSocket(channel='vcan0')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-35" class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co">## same socket cannot receive the packet sent by itself</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="co"># rx_packet = socket2.recv()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-37" class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rx_packet.show2()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-38" class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># socket.sr1(packet, timeout=1)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-39" class="cell">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rx_packet = socket.recv()</span></span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>wrpcap(<span class="st">"./scapypcaptest.pcap"</span>, packet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-40" class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># close and remove vcan0</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="co"># !sshpass -v -p  asdf sudo ip link delete vcan0 </span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo ip link set down vcan0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>SSHPASS: searching for password prompt using match "assword"
+SSHPASS: read: [sudo] password for n: 
+SSHPASS: detected prompt. Sending password.
+SSHPASS: read: 
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="co"># delete vcan0</span></span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>os.system(<span class="st">"gpg -d -q ~/.sshpasswd.gpg | sshpass -v sudo ip link delete vcan0"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>SSHPASS: searching for password prompt using match "assword"
+SSHPASS: read: [sudo] password for n: 
+SSHPASS: detected prompt. Sending password.
+SSHPASS: read: 
+</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>0</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Binjian\.github\.io\/candycan");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/Binjian/candycan/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
